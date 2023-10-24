@@ -16,7 +16,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>
+        <link rel="shortcut icon" href="vercel.svg" type="image/x-icon+svg" />
+      </head>
+      <body className='grid grid-rows[2rem, 1fr, 2rem]'>
+        <header>Bookstore App</header>
+        {children}
+        <footer>All rights reserved</footer>
+      </body>
     </html>
   )
 }
