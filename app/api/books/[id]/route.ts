@@ -5,7 +5,6 @@ export async function GET(request: NextRequest, context: { params: { id: string 
   try {
     const id = context.params.id
     const data = await Books.findById(id);
-    console.log(context)
     if (!data) {
       return NextResponse.json({status: 404, message: 'Not Found'})
     } else {

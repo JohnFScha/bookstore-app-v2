@@ -1,8 +1,10 @@
 'use client'
 
 import React from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function EditBook({ params }: { params: { id: string } } ) {
+  const router = useRouter()
   const id = params.id
   
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -15,7 +17,13 @@ export default function EditBook({ params }: { params: { id: string } } ) {
 
     try {
       const result = await response.json();
-      console.log("Success:", result);
+      if (result) {
+        setTimeout(() => {
+          router.push('/')
+        }, 1100);
+      } else {
+        alert('Error updating book')
+      };
     } catch (error) {
       console.error("Error:", error);
     }

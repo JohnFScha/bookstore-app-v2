@@ -1,13 +1,23 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 export default function DeleteButton({ id }: { id: string }) {
-  const handleDelete = (id: string) => {
+  const router = useRouter()
+  const handleDelete = async (id: string) => {
     try {
-      fetch(`http://localhost:3000/api/books/${id}`, {
+      const response = await fetch(`http://localhost:3000/api/books/${id}`, {
         method: 'DELETE'
-      }).then(() => {
-        alert("Book deleted successfully!");
       })
+
+      if (response) {
+        setTimeout(() => {
+          router.push('/')
+        }, 1100);
+      } else {
+        alert('Error deleting book')
+      }
+
     } catch (error) {
       console.error("Error deleting the book:", error);
     }

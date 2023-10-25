@@ -1,8 +1,10 @@
 'use client'
 
 import React from 'react'
+import { useRouter } from 'next/navigation';
 
 export default function CreateBook() {
+  const router = useRouter()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -14,7 +16,14 @@ export default function CreateBook() {
 
     try {
       const result = await response.json();
-      console.log("Success:", result);
+      
+      if (result) {
+        setTimeout(() => {
+          router.push('/')
+        }, 1100);
+      } else {
+        alert('Error creating book')
+      }
     } catch (error) {
       console.error("Error:", error);
     }
