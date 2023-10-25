@@ -21,16 +21,16 @@ export default function CreateBook() {
   }
   
   return (
-    <section className='p-5'>
+    <section className='flex flex-col gap-1'>
       <h2 className='text-center text-2xl'>New book information:</h2>
-      <form onSubmit={handleSubmit} className='flex flex-col w-2/4 m-auto  border-2 rounded-lg p-2'>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-3 w-1/4 m-auto border-2 rounded-lg p-5'>
         <label htmlFor="title">Title:</label>
-        <input type="text" name='title' className='text-black'/>
+        <input type="text" name='title' className='bg-transparent rounded-lg border-2 p-1'/>
         <label htmlFor="author">Author:</label>
-        <input type="text" name='author' className='text-black'/>
+        <input type="text" name='author' className='bg-transparent rounded-lg border-2 p-1'/>
         <label htmlFor="publishYear">Publish Year:</label>
-        <input type="number" name='publishYear' className='text-black'/>
-        <button type="submit">Create</button>
+        <input type="number" min={1800} max={2023} name='publishYear' className='bg-transparent rounded-lg border-2 p-1'/>
+        <button type="submit" className='bg-white text-black p-2 rounded-lg '>Create</button>
       </form>
     </section>
   )

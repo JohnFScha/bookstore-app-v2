@@ -13,5 +13,12 @@ export default function DeleteButton({ id }: { id: string }) {
     }
   };
 
-  return <button onClick={() => handleDelete(id)}>Delete Book</button>;
+  return (
+    <button 
+      onClick={() => handleDelete(id)}
+      className="bg-white text-black p-2 rounded-lg"
+    >
+      Delete Book
+    </button>
+  )
 }

@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
+import Header from './components/Header'
+import Footer from './components/Footer'
 
 export const metadata: Metadata = {
   title: 'Bookstore App',
@@ -19,10 +18,12 @@ export default function RootLayout({
       <head>
         <link rel="shortcut icon" href="vercel.svg" type="image/x-icon+svg" />
       </head>
-      <body className='grid grid-rows[2rem, 1fr, 2rem]'>
-        <header>Bookstore App</header>
+      <body className='grid grid-rows[2rem, 1fr, 2rem] gap-5'>
+        <Header />
+
         {children}
-        <footer>All rights reserved</footer>
+
+        <Footer />
       </body>
     </html>
   )

@@ -23,7 +23,7 @@ export async function GET(response: NextResponse) {
   }
 }
 
-export async function POST(request: NextRequest, response: NextResponse) {
+export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
     const title = formData.get('title')
