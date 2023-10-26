@@ -17,7 +17,7 @@ const links = [
 
 export default function Header() {
   return (
-    <header className='flex justify-between p-2 border-b-2 rounded-xl shadow-md shadow-white'>
+    <header className='flex justify-between p-3 border-b-2 rounded-b-xl shadow-md shadow-white'>
       <div className='flex items-center gap-2'>
         <Image src='/next.svg' alt='Bookstore app' width={80} height={80} className='bg-white p-2 rounded-lg' />
         |
