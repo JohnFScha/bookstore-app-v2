@@ -10,7 +10,7 @@ async function getBooks() {
 }
 
 export default async function Home() {
-  const { data }: { data: Book[] } = await getBooks();
+  const { data }: { data: Book[] | [] } = await getBooks();
 
   return (
     <section className='grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5 p-5'>
