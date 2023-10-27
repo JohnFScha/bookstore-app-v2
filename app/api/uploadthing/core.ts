@@ -1,14 +1,8 @@
 const Books = require('../../models/bookModel.js')
 import { createUploadthing, type FileRouter } from "uploadthing/next";
-import { connect } from 'mongoose';
+import connect from "@/app/utils/connect";
 
-connect(process.env.MONGO_DB_CONNECT!)
-  .then(() => {
-    console.log("Connected to DB");
-  })
-  .catch((error) => {
-    throw new Error(`Error connecting to DB: ${error}`);
-  });
+connect()
 
 const f = createUploadthing();
 
