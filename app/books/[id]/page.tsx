@@ -5,7 +5,6 @@ import Image from 'next/image';
 async function getBook(id: string) {
   const res = await fetch(`http://localhost:3000/api/books/${id}`, {
     method: 'GET',
-    cache: 'no-store'
   })
   const data = await res.json()
   return data.data
