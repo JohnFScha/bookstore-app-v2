@@ -1,6 +1,6 @@
 const Books = require('../../models/bookModel.js')
-import { connect } from 'mongoose';
 import { NextRequest, NextResponse } from 'next/server';
+import { connect } from 'mongoose';
 
 connect(process.env.MONGO_DB_CONNECT!)
 .then(() => {
@@ -29,11 +29,13 @@ export async function POST(request: NextRequest) {
     const title = formData.get('title')
     const author = formData.get('author')
     const publishYear = formData.get('publishYear')
+    const thumbnailUrl = formData.get('thumbnailUrl')
   
     const newBook: Book = await Books.create({
       title: title,
       author: author,
-      publishYear: publishYear
+      publishYear: publishYear,
+      thumbnailUrl: thumbnailUrl
     })
 
     if (newBook) {

@@ -26,7 +26,7 @@ export default function Header() {
       <nav>
         <ul className='flex items-center gap-3'>
           {links.map(link => (
-            <li key={link.id} className='border-2 py-1 px-2 rounded-lg hover:bg-white hover:text-black transition duration-500'>
+            <li key={link.id} className={`border-2 py-1 px-2 rounded-lg hover:bg-white hover:text-black transition duration-500`}>
               <Link href={link.href}>{link.label}</Link>
             </li>
           ))}

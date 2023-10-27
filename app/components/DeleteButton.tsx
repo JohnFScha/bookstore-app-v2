@@ -20,7 +20,7 @@ export default function DeleteButton({ id }: { id: string }) {
     <form action={deleteBook}>
       <button
         type="submit"
-        className="bg-white text-black p-2 rounded-lg"
+        className="bg-white text-black border-2 p-2 rounded-lg hover:bg-transparent hover:text-white transition duration-300"
       >
         Delete Book
       </button>

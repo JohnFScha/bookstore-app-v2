@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="shortcut icon" href="vercel.svg" type="image/x-icon+svg" />
+        <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon+svg" />
       </head>
       <body className='grid grid-rows[2rem, 1fr, 2rem] gap-5'>
         <Header />

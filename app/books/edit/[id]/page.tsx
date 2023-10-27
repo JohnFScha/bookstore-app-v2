@@ -1,5 +1,4 @@
 import { redirect } from 'next/navigation'
-
 export default async function EditBook({ params }: { params: { id: string } }) {
   const id = params.id
 
@@ -30,6 +29,7 @@ export default async function EditBook({ params }: { params: { id: string } }) {
         <label htmlFor="publishYear">Publish Year:</label>
         <input type="number" min={1800} max={2023} name='publishYear' className='bg-transparent rounded-lg border-2 p-1' />
         <button type="submit" className='bg-white text-black p-2 rounded-lg '>Edit</button>
+        
       </form>
     </section>
   )
