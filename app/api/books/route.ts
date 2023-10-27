@@ -4,7 +4,7 @@ import connect from '@/app/utils/connect';
 
 connect()
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const data = await Books.find();
     if(data) {
