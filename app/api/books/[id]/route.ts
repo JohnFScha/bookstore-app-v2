@@ -39,11 +39,13 @@ export async function PUT(request: Request, context: { params: { id: string } })
     const title = formData.get('title')
     const author = formData.get('author')
     const publishYear = formData.get('publishYear')
+    const thumbnailUrl = formData.get('thumbnailUrl')
   
     const newBook: Book = await Books.findByIdAndUpdate(id, {
       title: title,
       author: author,
-      publishYear: publishYear
+      publishYear: publishYear,
+      thumbnailUrl: thumbnailUrl
     })
   
     if (!newBook) {

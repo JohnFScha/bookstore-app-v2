@@ -39,7 +39,7 @@ export default function CreateBook() {
         <label htmlFor="publishYear">Publish Year:</label>
         <input type="number" min={1800} max={2023} name='publishYear' className='bg-transparent rounded-lg border-2 p-1' />
         <label htmlFor="bookCover">Book cover:</label>
-        <input name="bookCover" type="file" className="bg-transparent rounded-lg border-2 p-1"/>
+        <input name="bookCover" type="file" accept="image/*" className="bg-transparent rounded-lg border-2 p-1 file:rounded-lg file:bg-white file:text-black file:border-2 file:hover:bg-transparent file:hover:text-white file:transition file:duration-300"/>
         <button type="submit" className='bg-white text-black p-2 rounded-lg '>Create</button>
       </form>
     </section>
