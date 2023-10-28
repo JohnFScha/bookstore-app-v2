@@ -6,12 +6,11 @@ import dbConnect from '@/app/lib/dbConnect';
 const utapi = new UTApi({ apiKey: process.env.UPLOADTHING_SECRET })
 
 export default async function EditBook({ params }: { params: { id: string } }) {
-  await dbConnect()
   const id = params.id
-
+  
   async function editBook(formData: FormData) {
     'use server'
-
+    await dbConnect()
 
     const file = formData.get('bookCover') as File;
 

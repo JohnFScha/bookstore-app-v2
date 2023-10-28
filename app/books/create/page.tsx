@@ -6,10 +6,10 @@ import Books from '@/app/models/bookModel'
 const utapi = new UTApi({ apiKey: process.env.UPLOADTHING_SECRET })
 
 export default async function CreateBook() {
-  await dbConnect()
   
   async function createBook(formData: FormData) {
     'use server';
+    await dbConnect()
 
     const file = formData.get('bookCover') as File;
 
