@@ -53,19 +53,19 @@ Make sure you have the following dependencies installed:
 3.  Install dependencies:
     
     `npm install
-    # or
+    ### or
     yarn install
-    # or
+    ### or
     pnpm install` 
     
 4.  Start the development server:
     
     `npm run dev
-    # or
+    ### or
     yarn dev
-    # or
+    ### or
     pnpm dev
-    # or
+    ### or
     bun dev` 
     
 5.  Open your web browser and go to [http://localhost:3000](http://localhost:3000/) to see the application.
