@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Books, { Book } from '@/app/models/bookModel'
 
-async function getBook(id: string) {
+async function getBook(id: string) {  
   try {
     const res = await Books.findById(id)
 

@@ -6,7 +6,8 @@ const utapi = new UTApi({ apiKey: process.env.UPLOADTHING_SECRET })
 
 export default async function EditBook({ params }: { params: { id: string } }) {
   const id = params.id
-
+  console.log(id)
+  
   async function editBook(formData: FormData) {
     'use server'
     try {
