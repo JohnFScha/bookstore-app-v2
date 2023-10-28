@@ -18,7 +18,7 @@ export default withUt({
     screens: {
       'lg': '1024px',
       'md': '768px',
-      'xs': '425px'
+      'xs': '375px'
     }
   },
   plugins: [],
