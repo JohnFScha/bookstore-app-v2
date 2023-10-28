@@ -1,33 +1,41 @@
 import { redirect } from "next/navigation";
 import { UTApi } from "uploadthing/server";
+import Books, { Book } from '@/app/models/bookModel'
 
-const utapi = new UTApi()
+const utapi = new UTApi({ apiKey: process.env.UPLOADTHING_SECRET })
 
 export default function CreateBook() {
 
   async function createBook(formData: FormData) {
     'use server';
-    
-    const file = formData.get('bookCover');
-    const response = await utapi.uploadFiles(file);
-    
-    const url = response.data!.url
-    formData.append('thumbnailUrl', url)
-    
-    const res = await fetch('http://localhost:3000/api/books', {
-      method: 'POST',
-      body: formData
+
+    const file = formData.get('bookCover') as File;
+
+    if (file?.name !== 'undefined') {
+      const response = await utapi.uploadFiles(file);
+      const url = response.data!.url
+      formData.append('thumbnailUrl', url)
+    }
+
+    const title = formData.get('title') as string;
+    const author = formData.get('author') as string
+    const publishYear = Number(formData.get('publishYear'))
+    const thumbnailUrl = formData.get('thumbnailUrl') as string
+
+    const newBook = await Books.create({
+      title: title,
+      author: author,
+      publishYear: publishYear,
+      thumbnailUrl: thumbnailUrl !== null ? thumbnailUrl : 'https://utfs.io/f/ccd48a8a-f0a7-4323-add6-fa826698f381-9xntgd.jpg'
     })
 
-    const result = await res.json()
-    
-    if (result) {
+    if (newBook) {
       redirect('/')
     } else {
-      alert('Error creating book')
-    }
+      alert('Error updating book')
+    };
   }
- 
+
   return (
     <section className='flex flex-col gap-1'>
       <h2 className='text-center text-2xl'>New book information:</h2>
@@ -39,7 +47,7 @@ export default function CreateBook() {
         <label htmlFor="publishYear">Publish Year:</label>
         <input type="number" min={1800} max={2023} name='publishYear' className='bg-transparent rounded-lg border-2 p-1' />
         <label htmlFor="bookCover">Book cover:</label>
-        <input name="bookCover" type="file" accept="image/*" className="bg-transparent rounded-lg border-2 p-1 file:rounded-lg file:bg-white file:text-black file:border-2 file:hover:bg-transparent file:hover:text-white file:transition file:duration-300"/>
+        <input name="bookCover" type="file" accept="image/*" className="bg-transparent rounded-lg border-2 p-1 file:rounded-lg file:bg-white file:text-black file:border-2 file:hover:bg-transparent file:hover:text-white file:transition file:duration-300" />
         <button type="submit" className='bg-white text-black p-2 rounded-lg '>Create</button>
       </form>
     </section>

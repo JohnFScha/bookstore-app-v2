@@ -1,9 +1,17 @@
 import mongoose from 'mongoose';
 
-var { Schema } = mongoose;
-mongoose.Promise = global.Promise;
+export interface Book extends mongoose.Document {
+  _id: string
+  title: string,
+  author: string,
+  description?: string,
+  publishYear: number,
+  thumbnailUrl?: string,
+  createdAt: Date,
+  updatedAt: Date
+}
 
-var Books = new Schema({
+const Books = new mongoose.Schema<Book>({
   title: {
     type: String,
     required: true
@@ -29,4 +37,4 @@ var Books = new Schema({
   }
 )
 
-module.exports = mongoose.models.Books || mongoose.model("Books", Books);
+export default mongoose.models.Books || mongoose.model<Book>("Books", Books);

@@ -1,25 +1,23 @@
 import { redirect } from "next/navigation";
 import Link from 'next/link';
 import Image from 'next/image';
+import Books, { Book } from '@/app/models/bookModel'
 
 async function getBook(id: string) {
-  const res = await fetch(`http://localhost:3000/api/books/${id}`, {
-    method: 'GET',
-  })
-  const data = await res.json()
-  return data.data
+  const res = await Books.findById(id)
+  console.log(res)
+  return res
 }
 
 export default async function Book({ params }: { params: { id: string } }) {
-  const book: Book | null = await getBook(params.id)
+  const book: Book = await getBook(params.id)
+  
   async function deleteBook(formData: FormData) {
     'use server'
 
     const id = params.id
-    console.log(id)
-    const response = await fetch(`http://localhost:3000/api/books/${id}`, {
-      method: 'DELETE'
-    })
+
+    const response = await Books.findByIdAndDelete(id)
 
     if (response) {
       return redirect('/')
@@ -34,7 +32,7 @@ export default async function Book({ params }: { params: { id: string } }) {
         <article className='grid lg:grid-cols-2 sm:grid-cols-1 lg:w-3/5 text-justify border-2 p-4 rounded-xl justify-center sm:w-9/12'>
           <div className='flex justify-center'>
             <Image
-              src={book.thumbnailUrl}
+              src={book.thumbnailUrl ? book.thumbnailUrl : 'https://utfs.io/f/ccd48a8a-f0a7-4323-add6-fa826698f381-9xntgd.jpg'}
               alt={book.title}
               height={300}
               width={300}
@@ -51,7 +49,6 @@ export default async function Book({ params }: { params: { id: string } }) {
                 <button
                   type="submit"
                   formAction={deleteBook}
-                  name={params.id}
                   className="bg-white text-black border-2 p-2 rounded-lg hover:bg-transparent hover:text-white transition duration-300"
                 >
                   Delete Book
@@ -62,7 +59,7 @@ export default async function Book({ params }: { params: { id: string } }) {
             </div>
           </div>
         </article>
-        : <h2>Loading...</h2>}
+        : <h2 className="min-h-screen">Loading...</h2>}
     </section>
   )
 }
