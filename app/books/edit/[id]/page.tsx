@@ -43,8 +43,8 @@ export default async function EditBook({ params }: { params: { id: string } }) {
 
   return (
     <section className='flex flex-col gap-1'>
-      <h2 className='text-center text-2xl'>New book information:</h2>
-      <form action={editBook} className='flex flex-col gap-3 w-1/4 m-auto border-2 rounded-lg p-5'>
+      <h2 className='text-center text-2xl'>Edit book information:</h2>
+      <form action={editBook} className='flex flex-col gap-3 w-2/4 md:w-3/6 xs:w-10/12 m-auto border-2 rounded-lg p-5'>
         <label htmlFor="title">Title:</label>
         <input type="text" name='title' className='bg-transparent rounded-lg border-2 p-1' required />
         <label htmlFor="author">Author:</label>

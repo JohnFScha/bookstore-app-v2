@@ -37,9 +37,9 @@ export default async function Book({ params }: { params: { id: string } }) {
   };
 
   return (
-    <section className='flex justify-center items-center'>
-      <article className='grid lg:grid-cols-2 sm:grid-cols-1 lg:w-3/5 text-justify border-2 p-4 rounded-xl justify-center sm:w-9/12'>
-        <div className='flex justify-center'>
+    <section className='flex justify-center items-center md:p-0 xs:p-5'>
+      <article className='grid gap-5 lg:grid-cols-12 sm:grid-cols-1 lg:w-4/5  md:w-12/12 text-justify border-2 md:p-4 xs:py-4 rounded-xl justify-center'>
+        <div className='flex justify-center lg:col-span-4'>
           <Image
             src={book.thumbnailUrl}
             alt={book.title}
@@ -48,12 +48,12 @@ export default async function Book({ params }: { params: { id: string } }) {
             className='rounded-xl shadow-lg shadow-white'
           />
         </div>
-        <div className='flex flex-col justify-between p-2'>
+        <div className='flex flex-col justify-between p-2 lg:col-span-8 xs:gap-4'>
           <h2><strong>Title:</strong> {book.title}</h2>
           <p><strong>Author:</strong> {book.author}</p>
           <p><strong>Description:</strong> {book.description}</p>
           <small>Created at: {book.createdAt.toLocaleString()}</small>
-          <div className='flex gap-5'>
+          <div className='flex md:justify-start xs:justify-center gap-5'>
             <form>
               <button
                 type="submit"

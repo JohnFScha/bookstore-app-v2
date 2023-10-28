@@ -41,7 +41,7 @@ export default async function CreateBook() {
   return (
     <section className='flex flex-col gap-1'>
       <h2 className='text-center text-2xl'>New book information:</h2>
-      <form action={createBook} className='flex flex-col gap-3 w-2/6 m-auto border-2 rounded-lg p-5'>
+      <form action={createBook} className='flex flex-col gap-3 w-2/4 md:w-3/6 xs:w-10/12 m-auto border-2 rounded-lg p-5'>
         <label htmlFor="title">Title:</label>
         <input type="text" name='title' className='bg-transparent rounded-lg border-2 p-1' />
         <label htmlFor="author">Author:</label>

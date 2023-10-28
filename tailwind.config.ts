@@ -15,6 +15,11 @@ export default withUt({
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
+    screens: {
+      'lg': '1024px',
+      'md': '768px',
+      'xs': '425px'
+    }
   },
   plugins: [],
 });
