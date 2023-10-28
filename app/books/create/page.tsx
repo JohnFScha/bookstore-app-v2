@@ -10,35 +10,31 @@ export default async function CreateBook() {
   
   async function createBook(formData: FormData) {
     'use server';
-    
-    try {
-      const file = formData.get('bookCover') as File;
 
-      if (file?.name !== 'undefined') {
-        const response = await utapi.uploadFiles(file);
-        const url = response.data!.url
-        formData.append('thumbnailUrl', url)
-      }
+    const file = formData.get('bookCover') as File;
 
-      const title = formData.get('title') as string;
-      const author = formData.get('author') as string
-      const publishYear = Number(formData.get('publishYear'))
-      const thumbnailUrl = formData.get('thumbnailUrl') as string
+    if (file?.name !== 'undefined') {
+      const response = await utapi.uploadFiles(file);
+      const url = response.data!.url
+      formData.append('thumbnailUrl', url)
+    }
 
-      const newBook = await Books.create({
-        title: title,
-        author: author,
-        publishYear: publishYear,
-        thumbnailUrl: thumbnailUrl !== null ? thumbnailUrl : 'https://utfs.io/f/ccd48a8a-f0a7-4323-add6-fa826698f381-9xntgd.jpg'
-      })
+    const title = formData.get('title') as string;
+    const author = formData.get('author') as string
+    const publishYear = Number(formData.get('publishYear'))
+    const thumbnailUrl = formData.get('thumbnailUrl') as string
 
-      if (newBook) {
-        redirect('/')
-      } else {
-        throw new Error('Error creating book')
-      };
-    } catch (error) {
-      throw new Error(`Internal server error: ${error}`)
+    const newBook = await Books.create({
+      title: title,
+      author: author,
+      publishYear: publishYear,
+      thumbnailUrl: thumbnailUrl !== null ? thumbnailUrl : 'https://utfs.io/f/ccd48a8a-f0a7-4323-add6-fa826698f381-9xntgd.jpg'
+    })
+
+    if (newBook) {
+      redirect('/')
+    } else {
+      throw new Error('Error creating book')
     }
   }
 
