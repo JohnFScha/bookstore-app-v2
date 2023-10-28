@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from 'next/link';
+import Image from "next/image";
 import Books from '@/app/models/bookModel'
 import dbConnect from "@/app/lib/dbConnect";
 
@@ -25,7 +26,6 @@ export default async function Book({ params }: { params: { id: string } }) {
   async function deleteBook(formData: FormData) {
     'use server'
 
-
     const id = params.id
     const response = await Books.findByIdAndDelete(id)
 
@@ -40,8 +40,8 @@ export default async function Book({ params }: { params: { id: string } }) {
     <section className='flex justify-center items-center'>
       <article className='grid lg:grid-cols-2 sm:grid-cols-1 lg:w-3/5 text-justify border-2 p-4 rounded-xl justify-center sm:w-9/12'>
         <div className='flex justify-center'>
-          <img
-            src={book.thumbnailUrl ? book.thumbnailUrl : 'https://utfs.io/f/ccd48a8a-f0a7-4323-add6-fa826698f381-9xntgd.jpg'}
+          <Image
+            src={book.thumbnailUrl}
             alt={book.title}
             height={300}
             width={300}
