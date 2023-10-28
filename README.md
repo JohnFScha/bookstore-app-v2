@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Bookstore App v2
 
-## Getting Started
+This is a CRUD application for managing a bookstore, developed with Next.js 13.5
 
-First, run the development server:
+## Table of Contents
+1. [Getting Started](#getting-started)
+2. [Dependencies](#dependencies)
+3. [Local Implementation](#local-implementation)
+4. [How to Use](#how-to-use)
+5. [App workflow](#app-workflow)
+6. [Contributing](#contributing)
+7. [License](#license)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## [Getting Started](#getting-started)
+To get started with the Bookstore App v2, follow the steps below.
+
+### [Dependencies](#dependencies)
+Make sure you have the following dependencies installed:
+```json
+{
+  "dependencies": {
+    "@uploadthing/react": "^5.7.0",
+    "mongoose": "^7.6.3",
+    "next": "13.5.6",
+    "react": "^18",
+    "react-dom": "^18",
+    "uploadthing": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10",
+    "eslint": "^8",
+    "eslint-config-next": "13.5.6",
+    "postcss": "^8",
+    "tailwindcss": "^3",
+    "typescript": "^5"
+  }
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### [Local Implementation](#local-implementation)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1.  Clone this repository:
+    
+    `git clone https://github.com/JohnFScha/bookstore-app-v2.git` 
+    
+2.  Change to the project directory:
+    
+    `cd bookstore-app-v2` 
+    
+3.  Install dependencies:
+    
+    `npm install
+    # or
+    yarn install
+    # or
+    pnpm install` 
+    
+4.  Start the development server:
+    
+    `npm run dev
+    # or
+    yarn dev
+    # or
+    pnpm dev
+    # or
+    bun dev` 
+    
+5.  Open your web browser and go to [http://localhost:3000](http://localhost:3000/) to see the application.
+    
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## [How to Use](#how-to-use)
 
-## Learn More
+You can start managing your bookstore using the web interface. The app provides CRUD (Create, Read, Update, Delete) functionality for books.
 
-To learn more about Next.js, take a look at the following resources:
+## [App workflow](#app-workflow)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```mermaid
+graph LR
+A[Home] -- Book id --> B[Book details]
+A[Home] --> C((Create book))
+B -- Book id--> D((Edit book))
+D((Edit book)) -- Book edited ----> A[Home]
+C((Create book)) -- Book created --> A[Home]
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## [Contributing](#contributing)
 
-## Deploy on Vercel
+We welcome contributions to improve the Bookstore App v2. Feel free to create issues or pull requests on the [GitHub repository](https://github.com/JohnFScha/bookstore-app-v2).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## [License](#license)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the Open Source License.
+ 
+`Feel free to customize this README further to fit your project's specific details and requirements.`
+
