@@ -77,12 +77,14 @@ You can start managing your bookstore using the web interface. The app provides 
 
 ## [App workflow](#app-workflow)
 
+This a crude representation of the app worklow
+
 ```mermaid
 graph LR
 A[Home] -- Book id --> B[Book details]
 A[Home] --> C((Create book))
-B -- Book id--> D((Edit book))
-D((Edit book)) -- Book edited ----> A[Home]
+B -- Book id --> D((Edit book))
+D((Edit book)) -- Book edited --> A[Home]
 C((Create book)) -- Book created --> A[Home]
 ```
 
