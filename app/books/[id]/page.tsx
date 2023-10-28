@@ -25,17 +25,14 @@ export default async function Book({ params }: { params: { id: string } }) {
   async function deleteBook(formData: FormData) {
     'use server'
 
-    try {
-      const id = params.id
-      const response = await Books.findByIdAndDelete(id)
 
-      if (response) {
-        return redirect('/')
-      } else {
-        throw new Error('Error deleting book')
-      }
-    } catch (error) {
-      throw new Error(`Internal server error: ${error}`)
+    const id = params.id
+    const response = await Books.findByIdAndDelete(id)
+
+    if (response) {
+      return redirect('/')
+    } else {
+      throw new Error('Error deleting book')
     }
   };
 
