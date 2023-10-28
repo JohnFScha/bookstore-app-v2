@@ -6,9 +6,10 @@ const utapi = new UTApi({ apiKey: process.env.UPLOADTHING_SECRET })
 
 export default async function EditBook({ params }: { params: { id: string } }) {
   const id = params.id
-  
+
   async function editBook(formData: FormData) {
     'use server'
+
     try {
       const file = formData.get('bookCover') as File;
 
@@ -35,10 +36,10 @@ export default async function EditBook({ params }: { params: { id: string } }) {
       if (response) {
         redirect('/')
       } else {
-        alert('Error updating book')
+        throw new Error('Error updating book')
       };
     } catch (error) {
-      console.log('Internal server error:', error)
+      throw new Error(`Internal server error: ${error}`)
     }
   }
 

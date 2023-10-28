@@ -8,6 +8,7 @@ export default function CreateBook() {
 
   async function createBook(formData: FormData) {
     'use server';
+    
     try {
       const file = formData.get('bookCover') as File;
 
@@ -32,7 +33,7 @@ export default function CreateBook() {
       if (newBook) {
         redirect('/')
       } else {
-        throw new Error('Error updating book')
+        throw new Error('Error creating book')
       };
     } catch (error) {
       throw new Error(`Internal server error: ${error}`)

@@ -9,7 +9,7 @@ async function getBook(id: string) {
 
     if (res) {
       const serializedBook = JSON.parse(JSON.stringify(res))
-      return serializedBook
+      return {dummy: 'dummy'}
     } else {
       throw new Error(`${id} not found`)
     }
@@ -20,7 +20,7 @@ async function getBook(id: string) {
 }
 
 export default async function Book({ params }: { params: { id: string } }) {
-  const book: Book = await getBook(params.id)
+  const dummy = await getBook(params.id)
 
   async function deleteBook(formData: FormData) {
     'use server'
@@ -41,7 +41,8 @@ export default async function Book({ params }: { params: { id: string } }) {
 
   return (
     <section className='flex justify-center items-center'>
-      <article className='grid lg:grid-cols-2 sm:grid-cols-1 lg:w-3/5 text-justify border-2 p-4 rounded-xl justify-center sm:w-9/12'>
+      <h2>{dummy.dummy}</h2>
+      {/* <article className='grid lg:grid-cols-2 sm:grid-cols-1 lg:w-3/5 text-justify border-2 p-4 rounded-xl justify-center sm:w-9/12'>
         <div className='flex justify-center'>
           <Image
             src={book.thumbnailUrl ? book.thumbnailUrl : 'https://utfs.io/f/ccd48a8a-f0a7-4323-add6-fa826698f381-9xntgd.jpg'}
@@ -70,7 +71,7 @@ export default async function Book({ params }: { params: { id: string } }) {
             <Link href={`/books/edit/${book._id.toString()}`} className='bg-white text-black border-2 p-2 rounded-lg hover:bg-transparent hover:text-white transition duration-300'>Edit book</Link>
           </div>
         </div>
-      </article>
+      </article> */}
     </section>
   )
 }
