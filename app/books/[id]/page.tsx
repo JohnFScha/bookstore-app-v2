@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from 'next/link';
 import Books from '@/app/models/bookModel'
+import dbConnect from "@/app/lib/dbConnect";
 
 async function getBook(id: string) {
   try {
@@ -18,6 +19,7 @@ async function getBook(id: string) {
 }
 
 export default async function Book({ params }: { params: { id: string } }) {
+  await dbConnect()
   const book: Book = await getBook(params.id)
 
   async function deleteBook(formData: FormData) {

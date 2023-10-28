@@ -1,11 +1,13 @@
 import { redirect } from "next/navigation";
 import { UTApi } from "uploadthing/server";
+import dbConnect from '@/app/lib/dbConnect';
 import Books from '@/app/models/bookModel'
 
 const utapi = new UTApi({ apiKey: process.env.UPLOADTHING_SECRET })
 
-export default function CreateBook() {
-
+export default async function CreateBook() {
+  await dbConnect()
+  
   async function createBook(formData: FormData) {
     'use server';
     

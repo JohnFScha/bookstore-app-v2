@@ -1,10 +1,12 @@
 import { redirect } from 'next/navigation'
 import { UTApi } from "uploadthing/server";
 import Books from '@/app/models/bookModel'
+import dbConnect from '@/app/lib/dbConnect';
 
 const utapi = new UTApi({ apiKey: process.env.UPLOADTHING_SECRET })
 
 export default async function EditBook({ params }: { params: { id: string } }) {
+  await dbConnect()
   const id = params.id
 
   async function editBook(formData: FormData) {
