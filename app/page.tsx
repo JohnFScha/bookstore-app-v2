@@ -9,11 +9,11 @@ async function getBooks() {
     if (res) {
       return res
     } else {
-      console.log('Not found')
+      throw new Error('Not found')
     }
     
   } catch (error) {
-    console.log('Internal server error:', error)
+    throw new Error(`Internal server error: ${error}`)
   }
 }
 

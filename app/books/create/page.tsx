@@ -32,10 +32,10 @@ export default function CreateBook() {
       if (newBook) {
         redirect('/')
       } else {
-        alert('Error updating book')
+        throw new Error('Error updating book')
       };
     } catch (error) {
-      console.log('Internal server error:', error)
+      throw new Error(`Internal server error: ${error}`)
     }
   }
 
