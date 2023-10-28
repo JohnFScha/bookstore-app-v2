@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from 'next/link';
-import Books, { Book } from '@/app/models/bookModel'
+import Books from '@/app/models/bookModel'
 
 async function getBook(id: string) {
   try {
