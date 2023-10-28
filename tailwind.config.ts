@@ -1,4 +1,3 @@
-import type { Config } from 'tailwindcss'
 import { withUt } from "uploadthing/tw";
 
 export default withUt({
@@ -18,7 +17,7 @@ export default withUt({
     screens: {
       'lg': '1024px',
       'md': '768px',
-      'xs': '375px'
+      'xs': '600px'
     }
   },
   plugins: [],
