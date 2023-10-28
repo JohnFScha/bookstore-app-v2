@@ -4,8 +4,18 @@ import Image from 'next/image';
 import Books, { Book } from '@/app/models/bookModel'
 
 async function getBook(id: string) {
-  const res = await Books.findById(id)
-  return res
+  try {
+    const res = await Books.findById(id)
+
+    if (res) {
+      return res
+    } else {
+      console.log(id, 'not found')
+    }
+    
+  } catch (error) {
+    console.log('Internal server error:', error)
+  }
 }
 
 export default async function Book({ params }: { params: { id: string } }) {
@@ -14,14 +24,17 @@ export default async function Book({ params }: { params: { id: string } }) {
   async function deleteBook(formData: FormData) {
     'use server'
 
-    const id = params.id
-
-    const response = await Books.findByIdAndDelete(id)
-
-    if (response) {
-      return redirect('/')
-    } else {
-      alert('Error deleting book')
+    try {
+      const id = params.id
+      const response = await Books.findByIdAndDelete(id)
+  
+      if (response) {
+        return redirect('/')
+      } else {
+        alert('Error deleting book')
+      }
+    } catch (error) {
+      console.log('Internal server error:', error)
     }
   };
 

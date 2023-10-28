@@ -2,16 +2,25 @@ import Link from 'next/link';
 import Books, {Book} from '@/app/models/bookModel'
 import dbConnect from './lib/dbConnect';
 
-
 async function getBooks() {
-  const res = await Books.find()
-  return res
+  try {
+    const res = await Books.find()
+
+    if (res) {
+      return res
+    } else {
+      console.log('Not found')
+    }
+    
+  } catch (error) {
+    console.log('Internal server error:', error)
+  }
 }
 
 export default async function Home() {
   await dbConnect()
   
-  const books: Book[] = await getBooks();
+  const books: Book[] | undefined = await getBooks();
 
   return (
     <section className='grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5 p-5'>

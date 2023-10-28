@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import { UTApi } from "uploadthing/server";
-import Books, { Book } from '@/app/models/bookModel'
+import Books from '@/app/models/bookModel'
 
 const utapi = new UTApi({ apiKey: process.env.UPLOADTHING_SECRET })
 
@@ -9,34 +9,37 @@ export default async function EditBook({ params }: { params: { id: string } }) {
 
   async function editBook(formData: FormData) {
     'use server'
+    try {
+      const file = formData.get('bookCover') as File;
 
-    const file = formData.get('bookCover') as File;
+      if (file?.name !== 'undefined') {
+        const response = await utapi.uploadFiles(file);
+        const url = response.data!.url
+        formData.append('thumbnailUrl', url)
+      }
 
-    if (file?.name !== 'undefined') {
-      const response = await utapi.uploadFiles(file);
-      const url = response.data!.url
-      formData.append('thumbnailUrl', url)
+      const title = formData.get('title') as string;
+      const author = formData.get('author') as string
+      const publishYear = Number(formData.get('publishYear'))
+      const thumbnailUrl = formData.get('thumbnailUrl') as string
+
+      const updatedBook = {
+        title: title,
+        author: author,
+        publishYear: publishYear,
+        thumbnailUrl: thumbnailUrl !== null ? thumbnailUrl : 'https://utfs.io/f/ccd48a8a-f0a7-4323-add6-fa826698f381-9xntgd.jpg'
+      }
+
+      const response = await Books.findByIdAndUpdate(id, updatedBook)
+
+      if (response) {
+        redirect('/')
+      } else {
+        alert('Error updating book')
+      };
+    } catch (error) {
+      console.log('Internal server error:', error)
     }
-
-    const title = formData.get('title') as string;
-    const author = formData.get('author') as string
-    const publishYear = Number(formData.get('publishYear'))
-    const thumbnailUrl = formData.get('thumbnailUrl') as string
-
-    const updatedBook = {
-      title: title,
-      author: author,
-      publishYear: publishYear,
-      thumbnailUrl: thumbnailUrl !== null ? thumbnailUrl : 'https://utfs.io/f/ccd48a8a-f0a7-4323-add6-fa826698f381-9xntgd.jpg'
-    }
-
-    const response = await Books.findByIdAndUpdate(id, updatedBook)
-
-    if (response) {
-      redirect('/')
-    } else {
-      alert('Error updating book')
-    };
   }
 
   return (
