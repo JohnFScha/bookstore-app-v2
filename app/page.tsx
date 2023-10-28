@@ -5,7 +5,6 @@ import dbConnect from './lib/dbConnect';
 
 async function getBooks() {
   const res = await Books.find()
-  console.log(res)
   return res
 }
 

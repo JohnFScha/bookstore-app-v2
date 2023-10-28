@@ -5,7 +5,6 @@ import Books, { Book } from '@/app/models/bookModel'
 
 async function getBook(id: string) {
   const res = await Books.findById(id)
-  console.log(res)
   return res
 }
 
