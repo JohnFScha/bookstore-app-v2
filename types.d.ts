@@ -8,3 +8,7 @@ type Book = {
   createdAt: Date,
   updatedAt: Date
 }
+
+type SearchParams = {
+  limit: string,
+}

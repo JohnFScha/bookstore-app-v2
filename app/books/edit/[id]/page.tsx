@@ -5,8 +5,24 @@ import dbConnect from '@/app/lib/dbConnect';
 
 const utapi = new UTApi({ apiKey: process.env.UPLOADTHING_SECRET })
 
+async function getBook(id: string) {
+  try {
+    const res = await Books.findById(id)
+
+    if (res) {
+      return res
+    } else {
+      throw new Error(`${id} not found`)
+    }
+
+  } catch (error) {
+    throw new Error(`Internal server error:, ${error}`)
+  }
+}
+
 export default async function EditBook({ params }: { params: { id: string } }) {
   const id = params.id
+  const book: Book = await getBook(id)
 
   async function editBook(formData: FormData) {
     'use server'
@@ -48,13 +64,13 @@ export default async function EditBook({ params }: { params: { id: string } }) {
       </section>
       <form action={editBook} className='flex flex-col gap-3 w-2/4 md:w-3/6 xs:w-10/12 m-auto border-2 rounded-lg p-5'>
         <label htmlFor="title">Title:</label>
-        <input type="text" name='title' className='bg-transparent rounded-lg border-2 p-1' required />
+        <input type="text" name='title' className='bg-transparent rounded-lg border-2 p-1 placeholder:italic' required autoComplete={book.title} placeholder={book.title} />
         <label htmlFor="author">Author:</label>
-        <input type="text" name='author' className='bg-transparent rounded-lg border-2 p-1' required />
+        <input type="text" name='author' className='bg-transparent rounded-lg border-2 p-1 placeholder:italic' required autoComplete={book.author} placeholder={book.author} />
         <label htmlFor="publishYear">Publish Year:</label>
-        <input type="number" min={1800} max={2023} name='publishYear' className='bg-transparent rounded-lg border-2 p-1' required />
+        <input type="number" min={1800} max={2023} name='publishYear' className='bg-transparent rounded-lg border-2 p-1 placeholder:italic' required autoComplete={book.publishYear.toString()} placeholder={book.publishYear.toString()} />
         <label htmlFor="bookCover">Book cover:</label>
-        <input name="bookCover" type="file" accept="image/*" className="bg-transparent rounded-lg border-2 p-1 file:rounded-lg file:bg-white file:text-black file:border-2 file:hover:bg-transparent file:hover:text-white file:transition file:duration-300" />
+        <input name="bookCover" type="file" accept="image/*" className="bg-transparent rounded-lg border-2 p-1 file:rounded-lg file:bg-white file:text-black file:border-2 file:hover:bg-transparent file:hover:text-white file:transition file:duration-300"  />
         <button type="submit" className='bg-white text-black p-2 rounded-lg '>Edit</button>
       </form>
     </section>
