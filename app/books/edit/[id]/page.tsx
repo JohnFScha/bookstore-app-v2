@@ -7,7 +7,7 @@ const utapi = new UTApi({ apiKey: process.env.UPLOADTHING_SECRET })
 
 export default async function EditBook({ params }: { params: { id: string } }) {
   const id = params.id
-  
+
   async function editBook(formData: FormData) {
     'use server'
     await dbConnect()
@@ -42,8 +42,10 @@ export default async function EditBook({ params }: { params: { id: string } }) {
   }
 
   return (
-    <section className='flex flex-col gap-1'>
-      <h2 className='text-center text-2xl'>Edit book information:</h2>
+    <section className='flex flex-col gap-5'>
+      <section className='flex justify-center'>
+        <h2 className='text-2xl p-2 rounded-lg bg-white text-black'>Edit book information:</h2>
+      </section>
       <form action={editBook} className='flex flex-col gap-3 w-2/4 md:w-3/6 xs:w-10/12 m-auto border-2 rounded-lg p-5'>
         <label htmlFor="title">Title:</label>
         <input type="text" name='title' className='bg-transparent rounded-lg border-2 p-1' required />

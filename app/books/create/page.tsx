@@ -6,7 +6,7 @@ import Books from '@/app/models/bookModel'
 const utapi = new UTApi({ apiKey: process.env.UPLOADTHING_SECRET })
 
 export default async function CreateBook() {
-  
+
   async function createBook(formData: FormData) {
     'use server';
     await dbConnect()
@@ -39,8 +39,10 @@ export default async function CreateBook() {
   }
 
   return (
-    <section className='flex flex-col gap-1'>
-      <h2 className='text-center text-2xl'>New book information:</h2>
+    <section className='flex flex-col gap-5'>
+      <section className="flex justify-center">
+        <h2 className='text-2xl p-2 rounded-lg bg-white text-black'>New book information:</h2>
+      </section>
       <form action={createBook} className='flex flex-col gap-3 w-2/4 md:w-3/6 xs:w-10/12 m-auto border-2 rounded-lg p-5'>
         <label htmlFor="title">Title:</label>
         <input type="text" name='title' className='bg-transparent rounded-lg border-2 p-1' />
