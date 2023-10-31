@@ -83,6 +83,8 @@ export async function createBook(formData: FormData) {
 // Update a book by id
 export async function editBook(formData: FormData, id: string) {
   await dbConnect()
+  const book: Book = await getBook(id)
+
   const file = formData.get('bookCover') as File;
 
   if (file?.name !== 'undefined') {
@@ -94,13 +96,13 @@ export async function editBook(formData: FormData, id: string) {
   const title = formData.get('title') as string;
   const author = formData.get('author') as string
   const publishYear = Number(formData.get('publishYear'))
-  const thumbnailUrl = formData.get('thumbnailUrl') as string
+  const newThumbnailUrl = formData.get('thumbnailUrl') as string
 
   const updatedBook = {
     title: title,
     author: author,
     publishYear: publishYear,
-    thumbnailUrl: thumbnailUrl !== null ? thumbnailUrl : 'https://utfs.io/f/ccd48a8a-f0a7-4323-add6-fa826698f381-9xntgd.jpg'
+    thumbnailUrl: book.thumbnailUrl !== null ? book.thumbnailUrl : newThumbnailUrl || 'https://utfs.io/f/ccd48a8a-f0a7-4323-add6-fa826698f381-9xntgd.jpg'
   }
 
   const response = await Books.findByIdAndUpdate(id, updatedBook)

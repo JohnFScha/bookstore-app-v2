@@ -28,7 +28,7 @@ export default function Limit() {
 
   return (
     <form onSubmit={handleSubmit} className='flex gap-2'>
-      <input type="text" name="limit" className='bg-transparent rounded-lg border-2 p-1 placeholder:italic' ref={limitRef} placeholder='Limit to...' />
+      <input type="text" name="limit" className='bg-transparent rounded-lg border-2 py-1 px-2 placeholder:italic' ref={limitRef} placeholder='Limit to...' />
       <button type="submit" className='bg-white text-black py-1 px-2 rounded-lg hover:bg-transparent border-2 hover:text-white transition duration-300'>Limit search</button>
     </form>
   )
