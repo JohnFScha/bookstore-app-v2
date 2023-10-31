@@ -1,21 +1,6 @@
 import Link from 'next/link';
-import Books from '@/app/models/bookModel'
 import dbConnect from './lib/dbConnect';
-
-async function getBooks(limit: string) {
-  try {
-    const res = await Books.find().limit(limit ? Number(limit) : 100)
-
-    if (res) {
-      return res
-    } else {
-      throw new Error('Not found')
-    }
-
-  } catch (error) {
-    throw new Error(`Internal server error: ${error}`)
-  }
-}
+import { getBooks } from './utils/dbCalls';
 
 export default async function Home({ searchParams }: { searchParams: SearchParams }) {
   await dbConnect()

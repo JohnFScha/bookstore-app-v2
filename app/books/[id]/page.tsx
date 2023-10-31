@@ -1,23 +1,8 @@
-import { redirect } from "next/navigation";
 import Link from 'next/link';
 import Image from "next/image";
 import Books from '@/app/models/bookModel'
 import dbConnect from "@/app/lib/dbConnect";
-
-async function getBook(id: string) {
-  try {
-    const res = await Books.findById(id)
-
-    if (res) {
-      return res
-    } else {
-      throw new Error(`${id} not found`)
-    }
-
-  } catch (error) {
-    throw new Error(`Internal server error:, ${error}`)
-  }
-}
+import { getBook, deleteById } from "@/app/utils/dbCalls";
 
 export default async function Book({ params }: { params: { id: string } }) {
   await dbConnect()
@@ -25,15 +10,9 @@ export default async function Book({ params }: { params: { id: string } }) {
 
   async function deleteBook(formData: FormData) {
     'use server'
-
     const id = params.id
-    const response = await Books.findByIdAndDelete(id)
-
-    if (response) {
-      return redirect('/')
-    } else {
-      throw new Error('Error deleting book')
-    }
+    
+    await deleteById(id)
   };
 
   return (

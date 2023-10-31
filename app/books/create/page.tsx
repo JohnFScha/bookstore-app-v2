@@ -1,42 +1,6 @@
-import { redirect } from "next/navigation";
-import { UTApi } from "uploadthing/server";
-import dbConnect from '@/app/lib/dbConnect';
-import Books from '@/app/models/bookModel'
-
-const utapi = new UTApi({ apiKey: process.env.UPLOADTHING_SECRET })
+import { createBook } from "@/app/utils/dbCalls";
 
 export default async function CreateBook() {
-
-  async function createBook(formData: FormData) {
-    'use server';
-    await dbConnect()
-
-    const file = formData.get('bookCover') as File;
-
-    if (file?.name !== 'undefined') {
-      const response = await utapi.uploadFiles(file);
-      const url = response.data!.url
-      formData.append('thumbnailUrl', url)
-    }
-
-    const title = formData.get('title') as string;
-    const author = formData.get('author') as string
-    const publishYear = Number(formData.get('publishYear'))
-    const thumbnailUrl = formData.get('thumbnailUrl') as string
-
-    const newBook = await Books.create({
-      title: title,
-      author: author,
-      publishYear: publishYear,
-      thumbnailUrl: thumbnailUrl !== null ? thumbnailUrl : 'https://utfs.io/f/ccd48a8a-f0a7-4323-add6-fa826698f381-9xntgd.jpg'
-    })
-
-    if (newBook) {
-      redirect('/')
-    } else {
-      throw new Error('Error creating book')
-    }
-  }
 
   return (
     <section className='flex flex-col gap-5'>
