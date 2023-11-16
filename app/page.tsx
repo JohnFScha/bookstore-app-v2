@@ -6,7 +6,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 
 export default async function Home({ searchParams }: { searchParams: { limit: string } }) {
 
-  const res = await fetch(`${process.env.BASE_URL}/api/books?limit=${searchParams.limit}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/books?limit=${searchParams.limit}`, {
     method: 'GET',
     next: { revalidate: 0 }
   });
@@ -65,7 +65,7 @@ export default async function Home({ searchParams }: { searchParams: { limit: st
                         type="submit"
                         formAction={async () => {
                           'use server'
-                          await fetch(`${process.env.BASE_URL}/api/books/${book._id}`, {
+                          await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/books/${book._id}`, {
                             method: 'DELETE',
                           })
                           redirect('/')

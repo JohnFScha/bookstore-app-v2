@@ -13,7 +13,7 @@ export default async function Book({ params }: { params: { id: string } }) {
 
   async function deleteBook(formData: FormData) {
     'use server'
-    const res = await fetch(`${process.env.BASE_URL}/api/books/${params.id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/books/${params.id}`, {
       method: 'DELETE'
     })
     if (res.ok) {
