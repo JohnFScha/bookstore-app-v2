@@ -15,10 +15,7 @@ export default async function Home({ searchParams }: { searchParams: SearchParam
 
   return (
     <section className='flex flex-col items-stretch p-5 gap-10 bg-base-100'>
-      <div className='flex flex-col items-center gap-5'>
-        <h2 className='text-4xl font-bold'>Available Books</h2>
-        <Link href={'/books/create'} className='btn btn-lg glass bg-base-200'>Create new book</Link>
-      </div>
+      <h2 className='text-4xl text-center font-bold'>Available Books</h2>
       <div className="overflow-x-auto">
         <table className="lg:table glass xs:table-xs bg-base-300">
           {/* head */}
@@ -34,7 +31,7 @@ export default async function Home({ searchParams }: { searchParams: SearchParam
           </thead>
           <tbody>
             {books.map(book => (
-              <tr key={book._id}  className='text-lg'>
+              <tr key={book._id} className='text-lg'>
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
@@ -84,6 +81,7 @@ export default async function Home({ searchParams }: { searchParams: SearchParam
           </tfoot>
         </table>
       </div>
+      <Link href={'/books/create'} className='btn btn-lg glass bg-base-200'>Create new book</Link>
     </section>
   )
 }
