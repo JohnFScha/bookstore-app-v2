@@ -1,17 +1,26 @@
 import Link from 'next/link';
 import Image from "next/image";
-import dbConnect from "@/app/lib/dbConnect";
-import { getBook, deleteById } from "@/app/utils/dbCalls";
+import { redirect } from 'next/navigation';
 
 export default async function Book({ params }: { params: { id: string } }) {
-  await dbConnect()
-  const book: Book = await getBook(params.id)
+  
+  const res = await fetch(`${process.env.BASE_URL}/api/books/${params.id}`, {
+    method: 'GET',
+    cache: 'no-store'
+  })
+
+  const book: Book = await res.json()
 
   async function deleteBook(formData: FormData) {
     'use server'
-    const id = params.id
-
-    await deleteById(id)
+    const res = await fetch(`${process.env.BASE_URL}/api/books/${params.id}`, {
+      method: 'DELETE'
+    })
+    if (res.ok) {
+      return redirect('/')
+    } else {
+      throw new Error('Error deleting book')
+    }
   };
 
   return (
@@ -27,12 +36,15 @@ export default async function Book({ params }: { params: { id: string } }) {
             className='object-contain'
           />
         </figure>
-        <div className='card-body justify-around lg:w-3/12 xs:w-full'>
-          <h2><strong>Title:</strong> {book.title}</h2>
-          <p className='flex-grow-0'><strong>Author:</strong> {book.author}</p>
-          <p className='flex-grow-0'><strong>Description:</strong> {book.description}</p>
-          <small>Created at: {book.createdAt.toLocaleString()}</small>
+        <div className='card-body justify-between lg:w-3/12 xs:w-full'>
+          <div className='flex flex-col gap-5'>
+            <h2><strong>Title:</strong> {book.title}</h2>
+            <p className='flex-grow-0'><strong>Author:</strong> {book.author}</p>
+            <p className='flex-grow-0'><strong>Description:</strong> {book.description}</p>
+            <small>Created at: {book.createdAt.toLocaleString()}</small>
+          </div>
           <div className='card-actions justify-stretch'>
+            <Link href={`/books/${book._id.toString()}/edit`} className='btn btn-info btn-outline'>Edit book</Link>
             <form>
               <button
                 type="submit"
@@ -42,7 +54,6 @@ export default async function Book({ params }: { params: { id: string } }) {
                 Delete Book
               </button>
             </form>
-            <Link href={`/books/edit/${book._id.toString()}`} className='btn btn-info btn-outline'>Edit book</Link>
           </div>
         </div>
       </article>

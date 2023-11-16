@@ -1,17 +1,17 @@
 import Link from 'next/link';
-import dbConnect from './lib/dbConnect';
-import { getBooks } from './utils/dbCalls';
+import { redirect } from 'next/navigation';
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 
-export const revalidate = 10
+export default async function Home({ searchParams }: { searchParams: { limit: string } }) {
 
-export default async function Home({ searchParams }: { searchParams: SearchParams }) {
-  await dbConnect()
-  const { limit } = searchParams;
+  const res = await fetch(`${process.env.BASE_URL}/api/books?limit=${searchParams.limit}`, {
+    method: 'GET',
+    next: { revalidate: 0 }
+  });
 
-  const books: Book[] | undefined = await getBooks(limit);
+  const books: Book[] = await res.json()
 
   return (
     <section className='flex flex-col items-stretch p-5 gap-10 bg-base-100'>
@@ -46,23 +46,35 @@ export default async function Home({ searchParams }: { searchParams: SearchParam
                 </td>
                 <td>{book.title}</td>
                 <td>{book.publishYear}</td>
-                <td>{book.createdAt.toDateString()}</td>
-                <td>{book.updatedAt.toDateString()}</td>
+                <td>{book.createdAt.toString()}</td>
+                <td>{book.updatedAt.toString()}</td>
                 <th className='flex justify-between'>
                   <div className="lg:tooltip" data-tip="Info">
                     <Link href={`/books/${book._id}`} className="btn btn-ghost btn-square bg-base-300">
                       <FaMagnifyingGlass />
                     </Link>
                   </div>
-                  <div className="lg:tooltip tooltip-info" data-tip="Edit">
-                    <Link href={`/books/edit/${book._id.toString()}`} className='btn btn-info btn-square'>
+                  <div className="tooltip tooltip-info" data-tip="edit">
+                    <Link href={`/books/${book._id.toString()}/edit`} className='btn btn-info btn-square'>
                       <FaEdit />
                     </Link>
                   </div>
-                  <div className="lg:tooltip tooltip-error" data-tip="Delete">
-                    <Link href={`/api/books/${book._id}`} className="btn btn-square btn-error btn-md">
-                      <RiDeleteBin5Fill />
-                    </Link>
+                  <div className="tooltip tooltip-error" data-tip="delete">
+                    <form>
+                      <button
+                        type="submit"
+                        formAction={async () => {
+                          'use server'
+                          await fetch(`${process.env.BASE_URL}/api/books/${book._id}`, {
+                            method: 'DELETE',
+                          })
+                          redirect('/')
+                        }}
+                        className="btn btn-square btn-error"
+                      >
+                        <RiDeleteBin5Fill />
+                      </button>
+                    </form>
                   </div>
                 </th>
               </tr>
