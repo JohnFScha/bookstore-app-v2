@@ -1,6 +1,11 @@
 import Link from 'next/link';
 import dbConnect from './lib/dbConnect';
 import { getBooks } from './utils/dbCalls';
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { FaEdit } from "react-icons/fa";
+import { RiDeleteBin5Fill } from "react-icons/ri";
+
+export const revalidate = 10
 
 export default async function Home({ searchParams }: { searchParams: SearchParams }) {
   await dbConnect()
@@ -9,15 +14,76 @@ export default async function Home({ searchParams }: { searchParams: SearchParam
   const books: Book[] | undefined = await getBooks(limit);
 
   return (
-    <section className='grid lg:grid-cols-4 md:grid-cols-3 xs:grid-cols-1 lg:gap-y-5 xs:gap-5 lg:place-items-center lg:p-0 xs:p-3'>
-      {books ? books.map((book: Book) => (
-        <article key={book._id} className='flex flex-col lg:w-9/12 xs:w-full gap-5 border-2 rounded-lg p-2'>
-          <h2><strong>Title:</strong> {book.title}</h2>
-          <h2><strong>Author:</strong> {book.author}</h2>
-          <Link href={`/books/${book._id.toString()}`} className='border-2 text-center p-2 rounded-lg bg-white text-black relative bottom-0 hover:bg-transparent hover:text-white hover:border-2 hover: transition duration-300'>See details</Link>
-        </article>
-      )) : <h2 className='min-h-screen'>Loading...</h2>}
-      <Link href={'/books/create'} className='flex my-10 mx-auto border-2 text-center p-2 rounded-lg bg-white text-black text-2xl hover:bg-transparent hover:text-white transition duration-300'>Create new book</Link>
+    <section className='flex flex-col items-stretch p-5 gap-10 bg-base-100'>
+      <div className='flex flex-col items-center gap-5'>
+        <h2 className='text-4xl font-bold'>Available Books</h2>
+        <Link href={'/books/create'} className='btn btn-lg glass bg-base-200'>Create new book</Link>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="lg:table glass xs:table-xs bg-base-300">
+          {/* head */}
+          <thead className='font-bold'>
+            <tr>
+              <th>Author</th>
+              <th>Title</th>
+              <th>Publish year</th>
+              <th>Created at</th>
+              <th>Updated at</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {books.map(book => (
+              <tr key={book._id}  className='text-lg'>
+                <td>
+                  <div className="flex items-center gap-3">
+                    <div className="avatar">
+                      <div className="mask mask-squircle w-12 h-12">
+                        <img src={book.thumbnailUrl} />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-bold">{book.author}</div>
+                    </div>
+                  </div>
+                </td>
+                <td>{book.title}</td>
+                <td>{book.publishYear}</td>
+                <td>{book.createdAt.toDateString()}</td>
+                <td>{book.updatedAt.toDateString()}</td>
+                <th className='flex justify-between'>
+                  <div className="lg:tooltip" data-tip="Info">
+                    <Link href={`/books/${book._id}`} className="btn btn-ghost btn-square bg-base-300">
+                      <FaMagnifyingGlass />
+                    </Link>
+                  </div>
+                  <div className="lg:tooltip tooltip-info" data-tip="Edit">
+                    <Link href={`/books/edit/${book._id.toString()}`} className='btn btn-info btn-square'>
+                      <FaEdit />
+                    </Link>
+                  </div>
+                  <div className="lg:tooltip tooltip-error" data-tip="Delete">
+                    <Link href={`/api/books/${book._id}`} className="btn btn-square btn-error btn-md">
+                      <RiDeleteBin5Fill />
+                    </Link>
+                  </div>
+                </th>
+              </tr>
+            ))}
+          </tbody>
+          {/* foot */}
+          <tfoot>
+            <tr>
+              <th>Author</th>
+              <th>Title</th>
+              <th>Publish year</th>
+              <th>Created at</th>
+              <th>Updated at</th>
+              <th>Actions</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
     </section>
   )
 }

@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme='coffee' className='transition-all duration-300'>
       <body className='grid grid-rows[2rem, 1fr, 2rem] gap-5'>
         <Header />
 

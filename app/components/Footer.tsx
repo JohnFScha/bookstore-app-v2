@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <footer className='p-4 border-t-2 bg-gray-50 text-black'>
+    <footer className='p-4 border-t-2 bg-base-300'>
       <div className='grid md:grid-cols-2 sm:grid-cols-1 gap-4 place-content-center'>
         <div className='md:text-start xs:text-center'>
           <h3 className='text-lg font-semibold'>Contact Us</h3>
