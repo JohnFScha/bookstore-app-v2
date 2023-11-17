@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin5Fill } from "react-icons/ri";
@@ -10,6 +10,7 @@ export default async function Home({ searchParams }: { searchParams: { limit: st
     method: 'GET',
     next: { revalidate: 0 }
   });
+
 
   const books: Book[] = await res.json()
 
@@ -68,7 +69,7 @@ export default async function Home({ searchParams }: { searchParams: { limit: st
                           await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/books/${book._id}`, {
                             method: 'DELETE',
                           })
-                          redirect('/')
+                          revalidatePath('/', 'layout');
                         }}
                         className="btn btn-square btn-error"
                       >
