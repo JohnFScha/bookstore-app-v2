@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 
 export default async function Book({ params }: { params: { id: string } }) {
   
-  const res = await fetch(`${process.env.BASE_URL}/api/books/${params.id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/books/${params.id}`, {
     method: 'GET',
     cache: 'no-store'
   })
