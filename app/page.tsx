@@ -46,8 +46,8 @@ export default async function Home({ searchParams }: { searchParams: { limit: st
                 </td>
                 <td>{book.title}</td>
                 <td>{book.publishYear}</td>
-                <td>{book.createdAt.toString()}</td>
-                <td>{book.updatedAt.toString()}</td>
+                <td>{(new Date(book.createdAt)).toDateString()}</td>
+                <td>{(new Date(book.updatedAt)).toDateString()}</td>
                 <th className='flex justify-between'>
                   <div className="lg:tooltip" data-tip="Info">
                     <Link href={`/books/${book._id}`} className="btn btn-ghost btn-square bg-base-300">

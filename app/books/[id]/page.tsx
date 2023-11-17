@@ -10,6 +10,7 @@ export default async function Book({ params }: { params: { id: string } }) {
   })
 
   const book: Book = await res.json()
+  const date = new Date(book.createdAt)
 
   async function deleteBook(formData: FormData) {
     'use server'
@@ -41,7 +42,7 @@ export default async function Book({ params }: { params: { id: string } }) {
             <h2><strong>Title:</strong> {book.title}</h2>
             <p className='flex-grow-0'><strong>Author:</strong> {book.author}</p>
             <p className='flex-grow-0'><strong>Description:</strong> {book.description}</p>
-            <small>Created at: {book.createdAt.toLocaleString()}</small>
+            <small>Created at: {date.toDateString()}</small>
           </div>
           <div className='card-actions justify-stretch'>
             <Link href={`/books/${book._id.toString()}/edit`} className='btn btn-info btn-outline'>Edit book</Link>
