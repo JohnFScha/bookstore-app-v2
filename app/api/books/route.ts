@@ -6,32 +6,26 @@ import { NextRequest, NextResponse } from 'next/server';
 const utapi = new UTApi({ apiKey: process.env.UPLOADTHING_SECRET })
 
 export async function GET(request: NextRequest) {
-  await dbConnect()
+  await dbConnect();
+
   try {
-    const searchParams = request.nextUrl.searchParams
-    const search = searchParams.get('search')
+    const searchParams = request.nextUrl.searchParams;
+    const search = searchParams.get('search');
+    let books;
 
-    if(search !== undefined) {
-      const res = await Books.find({ title: { $regex: search } })
-      
-      if (res) {
-        return NextResponse.json(res)
-      } else {
-        return NextResponse.json({ message: 'Not found' })
-      }
+    if (search === null || search === '') {
+      books = await Books.find();
+      return NextResponse.json(books);
     } else {
-      const res = Books.find()
-
-      if (res) {
-        return NextResponse.json(res)
-      } else {
-        return NextResponse.json({ message: 'Not found' })
-      }
+      books = await Books.find({ title: { $regex: search } });
+      return NextResponse.json(books);
     }
+
   } catch (error) {
-    return NextResponse.json({error})
+    return NextResponse.json({ error });
   }
 }
+
 
 export async function POST(request: NextRequest) {
   const formData = await request.formData()

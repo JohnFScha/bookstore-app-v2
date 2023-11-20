@@ -8,7 +8,3 @@ type Book = {
   createdAt: Date,
   updatedAt: Date
 }
-
-type SearchParams = {
-  search: string,
-}

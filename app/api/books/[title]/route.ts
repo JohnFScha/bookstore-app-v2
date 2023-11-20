@@ -5,15 +5,15 @@ import { NextRequest, NextResponse } from 'next/server'
 const utapi = new UTApi({ apiKey: process.env.UPLOADTHING_SECRET })
 
 // Get by id
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params
+export async function GET(request: NextRequest, { params }: { params: { title: string } }) {
+  const { title } = params
   try {
-    const res = await Books.findById(id)
+    const res = await Books.findOne({title: title})
 
     if (res) {
       return NextResponse.json(res)
     } else {
-      return NextResponse.json({ message: `${id} not found` })
+      return NextResponse.json({ message: `${title} not found` })
     }
 
   } catch (error) {

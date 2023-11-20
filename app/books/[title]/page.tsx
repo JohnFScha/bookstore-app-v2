@@ -2,9 +2,9 @@ import Link from 'next/link';
 import Image from "next/image";
 import { redirect } from 'next/navigation';
 
-export default async function Book({ params }: { params: { id: string } }) {
+export default async function Book({ params }: { params: { title: string } }) {
   
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/books/${params.id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/books/${params.title}`, {
     method: 'GET',
     cache: 'no-store'
   })
@@ -14,7 +14,7 @@ export default async function Book({ params }: { params: { id: string } }) {
 
   async function deleteBook(formData: FormData) {
     'use server'
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/books/${params.id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/books/${params.title}`, {
       method: 'DELETE'
     })
     if (res.ok) {

@@ -4,13 +4,19 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 
-export default async function Home({ searchParams }: { searchParams: SearchParams }) {
-
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/books?search=${searchParams.search}`, {
+export default async function Home({ searchParams }: { searchParams: {search: string | undefined } }) {
+  
+  const res = searchParams.search === undefined 
+  
+  ? await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/books`, {
+    method: 'GET',
+    next: { revalidate: 0 }
+  }) 
+  
+  : await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/books?search=${searchParams.search}`, {
     method: 'GET',
     next: { revalidate: 0 }
   });
-
 
   const books: Book[] = await res.json()
 
@@ -51,7 +57,7 @@ export default async function Home({ searchParams }: { searchParams: SearchParam
                 <td>{(new Date(book.updatedAt)).toDateString()}</td>
                 <th className='flex justify-between'>
                   <div className="lg:tooltip" data-tip="Info">
-                    <Link href={`/books/${book._id}`} className="btn btn-ghost btn-square bg-base-300">
+                    <Link href={`/books/${book.title}`} className="btn btn-ghost btn-square bg-base-300">
                       <FaMagnifyingGlass />
                     </Link>
                   </div>
