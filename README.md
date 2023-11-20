@@ -87,6 +87,8 @@ On the main page one can look for a specific book title with the search bar. The
 
 - [Mongoose](https://mongoosejs.com/): MongoDB ORM which defines and manages stored object models. Through its interface, mongoose connects to the database to store and retreive information based on the defined object structure. By its implementation the four basic methods GET, POST, PUT and DELETE are enabled for the user.
 
+- [UploadThing](https://uploadthing.com/): File upload and hosting for full stack typescript apps. This file manager allows for easy file upload for both client and server components. The returned URL for the hosted file is used for the book cover and sent to the DB after correct upload.
+
 - [Tailwind.css](https://tailwindcss.com/): CSS library for styling components using the `className` prop on the returned JSX. This library has the benefit of co-location, allowing the developer to directly style the component from the component file.
 
 - [DaisyUI](https://daisyui.com/): Tailwind.css based UI library, with pre defined classNames which apply reusable and customizable styles. It also comes with themes which are directly applied on the main HTML file.
