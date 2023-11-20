@@ -3,8 +3,8 @@
 import React from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 
-export default function Limit() {
-  const limitRef = React.useRef<HTMLInputElement>(null)
+export default function Search() {
+  const searchRef = React.useRef<HTMLInputElement>(null)
   const router = useRouter() 
   const searchParams = useSearchParams()
 
@@ -20,16 +20,16 @@ export default function Limit() {
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined = (event) => {
     event.preventDefault();
-    if (limitRef.current) {
-      const limit = limitRef.current.value
-      router.push(`/?${createQueryString('limit', limit)}`)
+    if (searchRef.current) {
+      const search = searchRef.current!.value
+      router.push(`/?${createQueryString('search', search)}`)
     }
   } 
 
   return (
     <form onSubmit={handleSubmit} className='flex gap-2'>
-      <input type="text" name="limit" className='input input-bordered placeholder:italic' ref={limitRef} placeholder='Limit to...' />
-      <button type="submit" className='btn bg-base-100'>Limit search</button>
+      <input type="text" name="search" className='input input-bordered placeholder:italic' ref={searchRef} placeholder='Search by title' />
+      <button type="submit" className='btn bg-base-100'>Search</button>
     </form>
   )
 }

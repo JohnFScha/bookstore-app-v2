@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import Limit from './Limit';
+import Search from './Search';
 import Switch from '@/app/components/Switch'
 import { GiBookshelf } from "react-icons/gi";
 
@@ -13,7 +13,7 @@ export default function Header() {
         <p className='italic text-xl'>Bookstore App</p>
       </Link>
       <nav className='md:flex xs:hidden gap-3'>
-        <Limit />
+        <Search />
         <Switch />
       </nav>
     </header>

@@ -39,11 +39,14 @@ export default async function Book({ params }: { params: { id: string } }) {
         </figure>
         <div className='card-body justify-between lg:w-3/12 xs:w-full'>
           <div className='flex flex-col gap-5'>
-            <h2><strong>Title:</strong> {book.title}</h2>
-            <p className='flex-grow-0'><strong>Author:</strong> {book.author}</p>
-            <p className='flex-grow-0'><strong>Description:</strong> {book.description}</p>
-            <small>Created at: {date.toDateString()}</small>
+            <h2 className='flex-grow-0 text-xl'><strong>Author:</strong></h2>
+            <p>{book.author}</p>
+            <h2 className='flex-grow-0 text-xl'><strong>Description:</strong> </h2>
+            <p>{book.description}</p>
+            <h2 className='flex-grow-0 text-xl'><strong>Created at:</strong></h2>
+            <p className='badge'>{date.toDateString()}</p>
           </div>
+          <hr className='bg-base-300 p-px rounded-full border-0' />
           <div className='card-actions justify-stretch'>
             <Link href={`/books/${book._id.toString()}/edit`} className='btn btn-info btn-outline'>Edit book</Link>
             <form>

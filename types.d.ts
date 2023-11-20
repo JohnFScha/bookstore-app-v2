@@ -10,5 +10,5 @@ type Book = {
 }
 
 type SearchParams = {
-  limit: string,
+  search: string,
 }

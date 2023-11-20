@@ -4,9 +4,9 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 
-export default async function Home({ searchParams }: { searchParams: { limit: string } }) {
+export default async function Home({ searchParams }: { searchParams: SearchParams }) {
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/books?limit=${searchParams.limit}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/books?search=${searchParams.search}`, {
     method: 'GET',
     next: { revalidate: 0 }
   });
@@ -18,7 +18,7 @@ export default async function Home({ searchParams }: { searchParams: { limit: st
     <section className='flex flex-col items-stretch p-5 gap-10 bg-base-100'>
       <h2 className='text-4xl text-center font-bold'>Available Books</h2>
       <div className="overflow-x-auto">
-        <table className="lg:table glass xs:table-xs bg-base-300">
+        <table className="table lg:table-lg glass xs:table-xs bg-base-300">
           {/* head */}
           <thead className='font-bold'>
             <tr>
