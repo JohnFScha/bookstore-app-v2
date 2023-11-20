@@ -102,7 +102,7 @@ graph LR
 A[Home] -- Book id --> B[Book details]
 A[Home] --> C((Create book))
 B -- Book id --> D((Edit book))
-D((Edit book)) -- Book edited --> A[Home]
+D((Edit book)) -- Book edited --> B[Book details]
 C((Create book)) -- Book created --> A[Home]
 ```
 
